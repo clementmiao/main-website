@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/static/command_palette.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        
+        <div id="app">
+            <button v-on:click="showCommandPalette">showCommandPalette</button>
+            <span v-if="seen">
+                <input v-model="message">
+                <action-item
+                    v-for="item in actionList"
+                    v-bind:action="item"
+                    v-bind:message="message"
+                    v-bind:key="item.id"
+                ></action-item>
+            </span>
+            <ol>
+            </ol>
+        </div>
+
+        
+        <script src="/static/static/command_palette.js"></script>
+    </body>
+</html>
