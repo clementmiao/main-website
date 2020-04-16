@@ -102,7 +102,7 @@ var app = new Vue({
     },
     mounted() {
         this._keyListener = function (e) {
-            if (e.key === ' ' && (e.ctrlKey || e.metaKey)) {
+            if (e.key === ' ' && e.ctrlKey) {
                 e.preventDefault();
                 this.seen = !this.seen
             }
