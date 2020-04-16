@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="/static/static/command_palette.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/scroll-into-view-if-needed/umd/scroll-into-view-if-needed.min.js"></script>
 </head>
 
 <body>
@@ -17,8 +18,8 @@
                     @input="updateValue($event.target.value)" type="text" @keydown.enter='enter' @keydown.down='down'
                     @keydown.up='up'>
                 <div class="dropdown-menu" style="width:100%">
-                    <div v-for="(suggestion, index) in matches" v-bind:class="{'active': isActive(index)}"
-                        @click="suggestionClick(index)">
+                    <div :ref="'action' + suggestion.id" v-for="(suggestion, index) in matches"
+                        v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)">
                         {{ suggestion.text }} <small>{{ suggestion.keyBinding }}</small>
                     </div>
                 </div>
