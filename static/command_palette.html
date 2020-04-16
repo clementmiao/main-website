@@ -6,18 +6,19 @@
     <body>
         
         <div id="app">
-            <button v-on:click="showCommandPalette">showCommandPalette</button>
-            <span v-if="seen">
-                <input v-model="message">
-                <action-item
-                    v-for="item in actionList"
-                    v-bind:action="item"
-                    v-bind:message="message"
-                    v-bind:key="item.id"
-                ></action-item>
-            </span>
-            <ol>
-            </ol>
+            <div class="container">
+                <span v-if="!seen" class="hint">
+                    Use Ctrl (or Cmd) + Space to open the Command Palette
+                </span>
+                <span v-if="seen">
+                    <input ref="search" style="width:100%" v-model="search" placeholder="search for a command ...">
+                    <action-item
+                        v-for="item in actionsList"
+                        v-bind:action="item"
+                        v-bind:key="item.id"
+                    ></action-item>
+                </span>
+            </div>
         </div>
 
         
