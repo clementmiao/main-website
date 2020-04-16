@@ -1,9 +1,12 @@
 html, body {
+    background-color: #ece8e1;
     margin: 5px;
     padding: 0;
 }
 
 .container {
+    background-color: rgb(40, 82, 125, 0.1);
+    color: black;
     border: 1px solid black;
     min-width: 500px;
     position: absolute;
