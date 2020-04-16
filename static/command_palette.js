@@ -30,6 +30,8 @@ var app = new Vue({
                     this.$nextTick(function() {
                         this.$refs.search.focus()
                     })
+                } else {
+                    this.search = ''
                 }
             }
         };
