@@ -16,6 +16,11 @@ var app = new Vue({
         search: '',
         actionsList: actions,
     },
+    methods: {
+        loseFocus: function () {
+            this.seen = false
+        },
+    },
     watch: {
         search: function (input) {
             this.actionsList = actions.filter(action => action.text.toLowerCase().includes(input.toLowerCase()));
@@ -23,16 +28,20 @@ var app = new Vue({
     },
      mounted() {
         this._keyListener = function(e) {
-            if (e.key === " " && (e.ctrlKey || e.metaKey)) {
+            if (e.key === ' ' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
-                this.seen = !this.seen;
-                if (this.seen === true) {
-                    this.$nextTick(function() {
-                        this.$refs.search.focus()
-                    })
-                } else {
-                    this.search = ''
-                }
+                this.seen = !this.seen
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                this.seen = false
+            }
+            if (this.seen === true) {
+                this.$nextTick(function() {
+                    this.$refs.search.focus()
+                })
+            } else {
+                this.search = ''
             }
         };
 

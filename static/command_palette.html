@@ -11,7 +11,7 @@
                     Use Ctrl (or Cmd) + Space to open the Command Palette
                 </span>
                 <span v-if="seen">
-                    <input ref="search" style="width:100%" v-model="search" placeholder="search for a command ...">
+                    <input ref="search" v-on:blur="loseFocus" style="width:100%" v-model="search" placeholder="search for a command ...">
                     <action-item
                         v-for="item in actionsList"
                         v-bind:action="item"
