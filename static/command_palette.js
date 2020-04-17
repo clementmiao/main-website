@@ -1,58 +1,65 @@
 var actions = [{
         id: 0,
         text: 'Delete deal',
-        keyBinding: 'a',
+        keyBinding: '⌘ A',
         execute: () => console.log('a'),
     },
     {
         id: 1,
         text: 'Close deal',
-        keyBinding: 'b',
+        keyBinding: '⌘ B',
         execute: () => console.log('b'),
     },
     {
         id: 2,
         text: 'Re-open deal',
-        keyBinding: 'c',
+        keyBinding: '⌘ C',
         execute: () => console.log('c'),
     },
     {
         id: 3,
         text: 'eat potatoes',
-        keyBinding: 'd',
+        keyBinding: '⌘ D',
         execute: () => console.log('d'),
     },
     {
         id: 4,
         text: 'cook potatoes',
-        keyBinding: 'e',
+        keyBinding: '⌘ E',
         execute: () => console.log('e'),
     },
     {
         id: 5,
         text: 'buy potatoes',
-        keyBinding: 'f',
+        keyBinding: '⌘ F',
         execute: () => console.log('f'),
     },
     {
         id: 6,
         text: 'fly a kite',
-        keyBinding: 'g',
+        keyBinding: '⌘ G',
         execute: () => console.log('g'),
     },
     {
         id: 7,
         text: 'buy a bike',
-        keyBinding: 'h',
+        keyBinding: '⌘ H',
         execute: () => console.log('h'),
     },
     {
         id: 8,
         text: 'party time',
-        keyBinding: 'i',
+        keyBinding: '⌘ I',
         execute: () => console.log('i'),
     },
 ];
+
+function fuzzy_match(str, pattern) {
+    pattern = pattern.split("").reduce(function (a, b) {
+        return a + ".*" + b;
+    });
+    return (new RegExp(pattern)).test(str);
+};
 
 var app = new Vue({
     el: '#app',
@@ -66,9 +73,27 @@ var app = new Vue({
     computed: {
         matches: function () {
             this.current = 0;
-            return this.actionsList.filter(obj => {
-                return obj.text.indexOf(this.value) >= 0
-            })
+            if (this.value && this.value !== '') {
+                const results = fuzzysort.go(this.value, this.actionsList, {
+                    key: 'text'
+                });
+                return results.map(
+                    result => ({
+                        ...this.actionsList[result.obj.id],
+                        ...{
+                            rendered: fuzzysort.highlight(result)
+                        }
+                    }))
+            } else {
+                return this.actionsList.map(
+                    result => ({
+                        ...result,
+                        ...{
+                            rendered: result.text
+                        }
+                    })
+                )
+            }
         },
     },
     methods: {
