@@ -23,7 +23,9 @@
                     <div class="action-item" :ref="'action' + suggestion.id" v-for="(suggestion, index) in matches"
                         v-bind:class="{'active': isActive(index)}" @click="suggestionClick(index)">
                         <div class="suggestion-description" v-html="suggestion.rendered"></div>
-                        <kbd class="suggestion-keybinding">{{ suggestion.keyBinding }}</kbd>
+                        <div class="suggestion-keybindings">
+                            <kbd class="suggestion-keybinding" v-for="key in suggestion.keyBinding">{{ key }}</kbd>
+                        </div>
                     </div>
                 </div>
             </span>
